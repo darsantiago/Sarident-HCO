@@ -1,24 +1,19 @@
-export type TipoFoto = 
-  | 'frontal' 
-  | 'lateral' 
-  | 'oclusal' 
-  | 'panoramica' 
-  | 'intraoral' 
+export type TipoFoto =
+  | 'frontal'
+  | 'lateral'
+  | 'oclusal'
+  | 'panoramica'
+  | 'intraoral'
   | 'extraoral';
 
 export interface FotoClinica {
   id: string;
   procedimiento_id: string;
-  nombre: string;
-  descripcion?: string;
+  tipo: TipoFoto;
   url: string;
-  thumbnail_url?: string;
-  mime_type: string;
-  size_bytes: number;
-  width?: number;
-  height?: number;
-  tipo?: TipoFoto;
+  storage_path: string;
   created_at: string;
 }
 
 export type FotoClinicaFormData = Omit<FotoClinica, 'id' | 'created_at'>;
+export type FotoClinicaCreate = Omit<FotoClinica, 'id' | 'created_at'>;

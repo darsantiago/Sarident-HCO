@@ -1,6 +1,6 @@
-import { FotoClinica } from './foto.types';
+import type { FotoClinica } from './foto.types';
 
-export type TipoProcedimiento = 
+export type TipoProcedimiento =
   | 'EVALUACION_APTITUD'
   | 'APERTURA_HC'
   | 'IMPRESIONES'
@@ -13,22 +13,20 @@ export type TipoProcedimiento =
 export interface Procedimiento {
   id: string;
   historia_clinica_id: string;
-  tipo: TipoProcedimiento;
-  titulo: string;
+  tipo: string;
   fecha: string;
-  datos: Record<string, any>;
-  profesional: string;
-  observaciones?: string;
+  notas?: string;
   created_at: string;
   updated_at: string;
-  
+
   fotos?: FotoClinica[];
 }
 
 export type ProcedimientoFormData = Omit<
-  Procedimiento, 
+  Procedimiento,
   'id' | 'created_at' | 'updated_at' | 'fotos'
 >;
+export type ProcedimientoCreate = Omit<Procedimiento, 'id' | 'created_at' | 'updated_at'>;
 
 // Tipos específicos para cada procedimiento
 
