@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePacientes } from '@/hooks/use-pacientes'
+import { useDebounce } from '@/hooks/use-debounce'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Dialog } from '@/components/ui/dialog'
@@ -22,6 +23,7 @@ export const PacientesPage = () => {
   const [showDialog, setShowDialog] = useState(false)
   const [editingPaciente, setEditingPaciente] = useState<Paciente | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
   const handleCreate = () => {
     setEditingPaciente(null)
@@ -49,15 +51,16 @@ export const PacientesPage = () => {
     }
   }
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value
-    setSearchQuery(query)
-
-    if (query.trim()) {
-      searchPacientes(query)
+  useEffect(() => {
+    if (debouncedSearchQuery.trim()) {
+      searchPacientes(debouncedSearchQuery)
     } else {
       refreshPacientes()
     }
+  }, [debouncedSearchQuery])
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
   }
 
   if (isLoading) {
