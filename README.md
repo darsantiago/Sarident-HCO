@@ -2,6 +2,14 @@
 
 Sistema web multiplataforma (PC + Android) profesional para gestión de historias clínicas odontológicas con capacidades offline completas.
 
+## 📚 Documentación Rápida
+
+- **[🚀 Guía de Deployment Completa](./DEPLOYMENT.md)** - Instrucciones paso a paso para poner en producción en 30 minutos
+- **[💰 Análisis de Costos y ROI](./COSTOS-Y-ROI.md)** - Comparativa de opciones, proyecciones y modelos de monetización
+- **[🗄️ Schema de Base de Datos](./supabase-schema.sql)** - Script SQL completo para Supabase
+
+**¿Primera vez?** → Lee [DEPLOYMENT.md](./DEPLOYMENT.md) y sigue los pasos.
+
 ## 🚀 Características Principales
 
 ### ✅ Gestión Integral
@@ -87,9 +95,23 @@ npm install
 ### 3. Configurar Supabase
 
 #### 3.1. Crear Proyecto en Supabase
+
+**Plan Recomendado para Producción: Pro ($25/mes)**
+
+✅ **¿Por qué Pro y no Free?**
+- 🔄 **Backups automáticos diarios** (plan gratuito NO tiene backups)
+- 🚀 **Sin pausa por inactividad** (plan gratuito se pausa después de 7 días sin uso)
+- 📞 **Soporte prioritario**
+- 📊 **8 GB de base de datos** (vs 500 MB gratis)
+- 💾 **100 GB de storage** para fotos (vs 1 GB gratis)
+
+**⚠️ Importante:** Para datos médicos de pacientes, los backups automáticos son **OBLIGATORIOS**. Perder datos = perder negocio.
+
+**Setup:**
 1. Ir a [supabase.com](https://supabase.com) y crear cuenta
 2. Crear nuevo proyecto
-3. Esperar a que el proyecto esté listo
+3. **Para producción:** Upgrade a Pro en Settings → Billing
+4. Esperar a que el proyecto esté listo
 
 #### 3.2. Ejecutar Schema SQL
 1. Ir al **SQL Editor** en Supabase
@@ -126,13 +148,63 @@ npm run dev
 npm run build
 ```
 
-## 🚀 Deployment en Vercel
+## 🚀 Deployment en Producción
 
-1. Push código a GitHub
-2. Ir a [vercel.com](https://vercel.com)
-3. Import repository
-4. Configurar variables de entorno
-5. Deploy
+### Opción Recomendada: Cloudflare Pages (Gratis, Uso Comercial)
+
+**Ventajas:**
+- ✅ **100% gratis** para uso comercial
+- ✅ **Bandwidth ilimitado**
+- ✅ **CDN global ultra-rápido**
+- ✅ **HTTPS automático**
+- ✅ **Sin tarjeta de crédito requerida**
+
+#### Pasos para Cloudflare Pages:
+
+1. **Push código a GitHub** (ya está hecho)
+
+2. **Crear cuenta en Cloudflare**
+   - Ir a [pages.cloudflare.com](https://pages.cloudflare.com)
+   - Crear cuenta gratuita
+
+3. **Conectar repositorio**
+   - Click en "Create a project"
+   - Conectar con GitHub
+   - Seleccionar repositorio `Sarident-HCO`
+
+4. **Configurar build**
+   ```
+   Build command:     npm run build
+   Build directory:   dist
+   Framework preset:  Vite
+   ```
+
+5. **Configurar variables de entorno**
+   - En "Environment variables":
+   ```
+   VITE_SUPABASE_URL = https://tu-proyecto.supabase.co
+   VITE_SUPABASE_ANON_KEY = tu-anon-key-aqui
+   ```
+
+6. **Deploy**
+   - Click "Save and Deploy"
+   - ⏱️ Listo en 2-3 minutos
+
+7. **Configurar dominio personalizado (opcional)**
+   - Settings → Custom domains
+   - Añadir tu dominio de GoDaddy
+   - Seguir instrucciones de DNS
+
+---
+
+### Alternativa: Vercel
+
+1. Ir a [vercel.com](https://vercel.com)
+2. Import repository desde GitHub
+3. Configurar variables de entorno (igual que arriba)
+4. Deploy
+
+**Nota:** Plan gratuito de Vercel es solo para uso NO comercial. Para comercial necesitas Pro ($20/mes).
 
 ## 📖 Guía Rápida de Uso
 
