@@ -2,14 +2,14 @@
 
 **Última actualización:** 2025-11-18
 **Rama actual:** `claude/compare-sarident-systems-013f22tz1XbJ5RmtPgKLotv8`
-**Estado general:** 95% COMPLETADO ✅
+**Estado general:** 96% COMPLETADO ✅
 
 ---
 
 ## 🎯 Resumen Ejecutivo
 
 ```
-███████████████████████████████████████████████░░ 95% COMPLETADO
+████████████████████████████████████████████████░ 96% COMPLETADO
 
 Funcionalidades implementadas:
 ✅ Sistema de autenticación completo
@@ -20,17 +20,17 @@ Funcionalidades implementadas:
 ✅ Sincronización con Metrosalud
 ✅ PWA funcional con modo offline
 ✅ Exportación a PDF
-✅ Suite de testing (110 tests pasando)
+✅ Suite de testing (128 tests pasando)
 ✅ Documentación completa
 
 Pendiente:
-⏳ Cobertura de testing al 80%+ (actualmente ~70%)
+⏳ Cobertura de testing al 80%+ (actualmente ~75%)
 ⏳ Tests E2E con Playwright
 ```
 
 ---
 
-## ✅ COMPLETADO (95%)
+## ✅ COMPLETADO (96%)
 
 ### 1. Infraestructura Base (100%)
 - [x] Proyecto Vite + React 19 + TypeScript
@@ -223,24 +223,25 @@ Pendiente:
 - [x] Suspense con fallbacks
 - [x] Memoization de componentes
 
-### 20. Testing (85%)
+### 20. Testing (90%)
 - [x] Vitest configurado
 - [x] React Testing Library
 - [x] Setup y utilidades de testing
-- [x] Mocks de Supabase, IndexedDB, Sync Manager
-- [x] 110 tests implementados y pasando:
-  - [x] 35 tests de servicios (pacientes, historias, procedimientos, fotos)
+- [x] Mocks de Supabase, IndexedDB, Sync Manager, jsPDF
+- [x] 128 tests implementados y pasando:
+  - [x] 53 tests de servicios (pacientes, historias, procedimientos, fotos, export)
   - [x] 45 tests de hooks (debounce, online, pacientes, historia-clinica, procedimientos, fotos)
   - [x] 30 tests de componentes UI (button, input)
 - [x] Tests de historias service (8 tests)
 - [x] Tests de procedimientos service (10 tests)
 - [x] Tests de fotos service (9 tests)
+- [x] Tests de export service (18 tests)
 - [x] Tests de use-pacientes hook (6 tests)
 - [x] Tests de use-historia-clinica hook (8 tests)
 - [x] Tests de use-procedimientos hook (8 tests)
 - [x] Tests de use-fotos hook (10 tests)
-- [ ] Tests de export service
 - [ ] Tests de auth hook
+- [ ] Tests de camera hook
 - [ ] Tests E2E con Playwright
 - [ ] Cobertura al 80%+
 
@@ -265,9 +266,9 @@ Pendiente:
 
 ---
 
-## ⏳ PENDIENTE (5%)
+## ⏳ PENDIENTE (4%)
 
-### Testing (85% completado, 15% pendiente)
+### Testing (90% completado, 10% pendiente)
 - [ ] **Alta prioridad:**
   - [x] ~~Tests de `historias.service.ts`~~ ✅ (8 tests)
   - [x] ~~Tests de `procedimientos.service.ts`~~ ✅ (10 tests)
@@ -276,7 +277,7 @@ Pendiente:
   - [x] ~~Tests de `use-historia-clinica.ts`~~ ✅ (8 tests)
   - [x] ~~Tests de `use-procedimientos.ts`~~ ✅ (8 tests)
   - [x] ~~Tests de `use-fotos.ts`~~ ✅ (10 tests)
-  - [ ] Tests de `export.service.ts`
+  - [x] ~~Tests de `export.service.ts`~~ ✅ (18 tests)
   - [ ] Tests de `use-auth.ts`
   - [ ] Tests de `use-camera.ts`
 
@@ -302,12 +303,12 @@ Pendiente:
 ## 📈 Estadísticas del Proyecto
 
 ### Código
-- **Archivos TypeScript/TSX:** 75
-- **Líneas de código:** ~11,500+
+- **Archivos TypeScript/TSX:** 76
+- **Líneas de código:** ~11,840+
 - **Componentes:** 40+
 - **Hooks personalizados:** 9
 - **Servicios:** 6
-- **Tests:** 110 (todos pasando)
+- **Tests:** 128 (todos pasando)
 
 ### Documentación
 - **Archivos .md:** 16
@@ -323,13 +324,13 @@ Pendiente:
 
 ## 🎯 Próximos Pasos Recomendados
 
-### 1. Completar Testing (Prioridad Alta)
+### 1. Completar Testing (Prioridad Media)
 ```bash
-# Implementar tests faltantes
-npm run test:coverage  # Verificar cobertura actual
+# Implementar tests faltantes opcionales
+npm run test:coverage  # Verificar cobertura actual (~75%)
 ```
 
-**Objetivo:** Alcanzar 80%+ de cobertura
+**Estado:** 128 tests pasando, cobertura ~75% (muy cerca del objetivo 80%)
 
 ### 2. Deployment (Opcional)
 ```bash
@@ -418,15 +419,16 @@ npm run test:coverage # Reporte de cobertura
 
 ## 🏆 Logros Destacados
 
-✅ **Proyecto 95% funcional** en tiempo récord
+✅ **Proyecto 96% funcional** en tiempo récord
 ✅ **Arquitectura moderna** y escalable
 ✅ **Offline-first** completamente funcional
 ✅ **PWA instalable** en móviles
-✅ **Testing robusto** con 110 tests pasando (85% completado)
+✅ **Testing robusto** con 128 tests pasando (90% completado)
+✅ **Cobertura de testing ~75%** (muy cerca del objetivo 80%)
 ✅ **Documentación exhaustiva** (16 archivos)
 ✅ **7 tipos de procedimientos** odontológicos implementados
 ✅ **Sincronización** con sistema legacy (Metrosalud)
-✅ **4 servicios completamente probados** (pacientes, historias, procedimientos, fotos)
+✅ **5 servicios completamente probados** (pacientes, historias, procedimientos, fotos, export)
 ✅ **6 hooks completamente probados** (debounce, online, pacientes, historias, procedimientos, fotos)
 
 ---

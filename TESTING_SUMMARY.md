@@ -2,16 +2,17 @@
 
 ## ✅ Estado Actual
 
-**Total de tests:** 110 ✓
+**Total de tests:** 128 ✓
 **Estado:** Todos pasando ✅
 **Framework:** Vitest + React Testing Library
 **Cobertura objetivo:** 80%+
+**Cobertura estimada:** ~75%
 
 ---
 
 ## 📊 Tests Implementados
 
-### 🔧 Services (35 tests)
+### 🔧 Services (53 tests)
 
 #### `src/services/__tests__/pacientes.service.test.ts` (8 tests)
 
@@ -64,6 +65,28 @@ Cobertura completa del servicio de fotos:
 - ✓ `delete()` - Lanzar error en fallo de storage
 - ✓ `delete()` - Lanzar error en fallo de database
 
+#### `src/services/__tests__/export.service.test.ts` (18 tests)
+
+Cobertura completa del servicio de exportación:
+- ✓ `exportToText()` - Generar texto con información del paciente
+- ✓ `exportToText()` - Incluir motivo de consulta
+- ✓ `exportToText()` - Incluir antecedentes médicos cuando existen
+- ✓ `exportToText()` - Incluir antecedentes odontológicos
+- ✓ `exportToText()` - Listar procedimientos correctamente
+- ✓ `exportToText()` - Manejar procedimientos sin notas
+- ✓ `exportToText()` - Manejar paciente sin teléfono o email
+- ✓ `exportToPDF()` - Crear documento PDF con título
+- ✓ `exportToPDF()` - Incluir información del paciente en PDF
+- ✓ `exportToPDF()` - Incluir teléfono si existe
+- ✓ `exportToPDF()` - Incluir motivo de consulta en PDF
+- ✓ `exportToPDF()` - Agregar procedimientos al PDF
+- ✓ `exportToPDF()` - Guardar el PDF con nombre correcto
+- ✓ `exportToPDF()` - Agregar nueva página si hay muchos procedimientos
+- ✓ `downloadAsText()` - Crear un blob con el texto exportado
+- ✓ `downloadAsText()` - Crear un enlace de descarga con nombre correcto
+- ✓ `downloadAsText()` - Hacer click en el enlace para descargar
+- ✓ `downloadAsText()` - Revocar la URL del objeto después de descargar
+
 **Características probadas:**
 - Operaciones CRUD completas
 - Offline-first behavior
@@ -71,6 +94,10 @@ Cobertura completa del servicio de fotos:
 - Sincronización con IndexedDB
 - Operaciones pendientes
 - Supabase Storage (upload/delete)
+- Exportación a texto plano
+- Generación de PDF con jsPDF
+- Descarga de archivos con Blob API
+- Formato de historias clínicas
 
 ---
 
@@ -190,7 +217,8 @@ src/
 │   ├── pacientes.service.test.ts
 │   ├── historias.service.test.ts
 │   ├── procedimientos.service.test.ts
-│   └── fotos.service.test.ts
+│   ├── fotos.service.test.ts
+│   └── export.service.test.ts
 ├── hooks/__tests__/
 │   ├── use-debounce.test.ts
 │   ├── use-online.test.ts
@@ -261,7 +289,7 @@ npm run test:coverage
 - [x] ~~`use-historia-clinica.test.ts`~~ - ✅ Completado (8 tests)
 - [x] ~~`use-procedimientos.test.ts`~~ - ✅ Completado (8 tests)
 - [x] ~~`use-fotos.test.ts`~~ - ✅ Completado (10 tests)
-- [ ] `export.service.test.ts` - Servicio de exportación
+- [x] ~~`export.service.test.ts`~~ - ✅ Completado (18 tests)
 - [ ] `use-auth.test.ts` - Hook de autenticación
 - [ ] `use-camera.test.ts` - Hook de cámara
 
@@ -285,15 +313,18 @@ npm run test:coverage
 ## 🏆 Logros
 
 ✅ **Infraestructura completa** de testing configurada
-✅ **110 tests pasando** sin errores (aumento de 115% desde 51 tests)
-✅ **Mocks robustos** para Supabase, IndexedDB y Sync Manager
-✅ **4 servicios completamente probados** (pacientes, historias, procedimientos, fotos)
+✅ **128 tests pasando** sin errores (aumento de 150% desde 51 tests)
+✅ **Mocks robustos** para Supabase, IndexedDB, Sync Manager y jsPDF
+✅ **5 servicios completamente probados** (pacientes, historias, procedimientos, fotos, export)
 ✅ **6 hooks completamente probados** (use-debounce, use-online, use-pacientes, use-historia-clinica, use-procedimientos, use-fotos)
 ✅ **2 componentes UI probados** (Button, Input)
 ✅ **Cobertura de Supabase Storage** (upload/delete de archivos)
 ✅ **Cobertura de browser-image-compression** (compresión de imágenes)
+✅ **Cobertura de jsPDF** (generación de PDFs)
+✅ **Cobertura de Blob y URL APIs** (descarga de archivos)
 ✅ **Documentación completa** de testing
 ✅ **Patrón establecido** para tests futuros
+✅ **Cobertura estimada del ~75%** (objetivo: 80%+)
 
 ---
 
