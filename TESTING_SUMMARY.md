@@ -2,7 +2,7 @@
 
 ## ✅ Estado Actual
 
-**Total de tests:** 51 ✓
+**Total de tests:** 84 ✓
 **Estado:** Todos pasando ✅
 **Framework:** Vitest + React Testing Library
 **Cobertura objetivo:** 80%+
@@ -11,9 +11,9 @@
 
 ## 📊 Tests Implementados
 
-### 🔧 Services (8 tests)
+### 🔧 Services (35 tests)
 
-**`src/services/__tests__/pacientes.service.test.ts`**
+#### `src/services/__tests__/pacientes.service.test.ts` (8 tests)
 
 Cobertura completa del servicio de pacientes:
 - ✓ `getAll()` - Obtener pacientes de Supabase
@@ -25,16 +25,56 @@ Cobertura completa del servicio de pacientes:
 - ✓ `update()` - Actualizar paciente
 - ✓ `delete()` - Soft delete de paciente
 
+#### `src/services/__tests__/historias.service.test.ts` (8 tests)
+
+Cobertura completa del servicio de historias clínicas:
+- ✓ `getByPacienteId()` - Obtener historia de Supabase
+- ✓ `getByPacienteId()` - Retornar null cuando no existe
+- ✓ `getByPacienteId()` - Fallback a IndexedDB
+- ✓ `create()` - Crear historia en Supabase
+- ✓ `create()` - Crear offline cuando falla Supabase
+- ✓ `update()` - Actualizar historia en Supabase
+- ✓ `update()` - Actualizar offline cuando falla
+- ✓ `update()` - Lanzar error si no existe en IndexedDB
+
+#### `src/services/__tests__/procedimientos.service.test.ts` (10 tests)
+
+Cobertura completa del servicio de procedimientos:
+- ✓ `getByHistoriaId()` - Obtener procedimientos de Supabase
+- ✓ `getByHistoriaId()` - Fallback a IndexedDB
+- ✓ `getByHistoriaId()` - Filtrar por historia_clinica_id en IndexedDB
+- ✓ `getById()` - Obtener procedimiento por ID de Supabase
+- ✓ `getById()` - Fallback a IndexedDB
+- ✓ `create()` - Crear procedimiento en Supabase
+- ✓ `create()` - Crear offline cuando falla Supabase
+- ✓ `update()` - Actualizar procedimiento en Supabase
+- ✓ `update()` - Actualizar offline cuando falla
+- ✓ `update()` - Lanzar error si no existe en IndexedDB
+
+#### `src/services/__tests__/fotos.service.test.ts` (9 tests)
+
+Cobertura completa del servicio de fotos:
+- ✓ `getByProcedimientoId()` - Obtener fotos de Supabase
+- ✓ `getByProcedimientoId()` - Fallback a IndexedDB
+- ✓ `getByProcedimientoId()` - Filtrar por procedimiento_id en IndexedDB
+- ✓ `upload()` - Subir foto correctamente
+- ✓ `upload()` - Lanzar error en fallo de storage
+- ✓ `upload()` - Lanzar error en fallo de database
+- ✓ `delete()` - Eliminar foto correctamente
+- ✓ `delete()` - Lanzar error en fallo de storage
+- ✓ `delete()` - Lanzar error en fallo de database
+
 **Características probadas:**
 - Operaciones CRUD completas
 - Offline-first behavior
 - Error handling
 - Sincronización con IndexedDB
 - Operaciones pendientes
+- Supabase Storage (upload/delete)
 
 ---
 
-### 🎣 Hooks (13 tests)
+### 🎣 Hooks (19 tests)
 
 #### `src/hooks/__tests__/use-debounce.test.ts` (6 tests)
 - ✓ Retornar valor inicial inmediatamente
@@ -52,6 +92,14 @@ Cobertura completa del servicio de pacientes:
 - ✓ Múltiples cambios de estado
 - ✓ Agregar event listeners
 - ✓ Remover event listeners al desmontar
+
+#### `src/hooks/__tests__/use-pacientes.test.ts` (6 tests)
+- ✓ Cargar pacientes automáticamente al montar
+- ✓ Crear un paciente y agregarlo a la lista
+- ✓ Actualizar un paciente en la lista
+- ✓ Eliminar un paciente de la lista
+- ✓ Buscar pacientes y actualizar la lista
+- ✓ Recargar la lista de pacientes
 
 ---
 
@@ -107,10 +155,14 @@ src/
 │   │   └── sync-manager.mock.ts  # Mock de sincronización
 │   └── README.md             # Documentación
 ├── services/__tests__/
-│   └── pacientes.service.test.ts
+│   ├── pacientes.service.test.ts
+│   ├── historias.service.test.ts
+│   ├── procedimientos.service.test.ts
+│   └── fotos.service.test.ts
 ├── hooks/__tests__/
 │   ├── use-debounce.test.ts
-│   └── use-online.test.ts
+│   ├── use-online.test.ts
+│   └── use-pacientes.test.ts
 └── components/ui/__tests__/
     ├── button.test.tsx
     └── input.test.tsx
@@ -167,18 +219,21 @@ npm run test:coverage
 ## 📈 Próximos Tests a Implementar
 
 ### Alta Prioridad
-- [ ] `historias.service.test.ts` - Servicio de historias clínicas
-- [ ] `procedimientos.service.test.ts` - Servicio de procedimientos
-- [ ] `fotos.service.test.ts` - Servicio de fotos
+- [x] ~~`historias.service.test.ts`~~ - ✅ Completado (8 tests)
+- [x] ~~`procedimientos.service.test.ts`~~ - ✅ Completado (10 tests)
+- [x] ~~`fotos.service.test.ts`~~ - ✅ Completado (9 tests)
+- [x] ~~`use-pacientes.test.ts`~~ - ✅ Completado (6 tests)
 - [ ] `export.service.test.ts` - Servicio de exportación
 - [ ] `use-auth.test.ts` - Hook de autenticación
-- [ ] `use-pacientes.test.ts` - Hook de pacientes
+- [ ] `use-historias.test.ts` - Hook de historias clínicas
+- [ ] `use-procedimientos.test.ts` - Hook de procedimientos
 
 ### Media Prioridad
 - [ ] `PacienteForm.test.tsx` - Formulario de pacientes
 - [ ] `PacienteCard.test.tsx` - Tarjeta de paciente
 - [ ] `CameraCapture.test.tsx` - Captura de fotos
 - [ ] `FotoViewer.test.tsx` - Visor de fotos
+- [ ] `ProcedimientoForm.test.tsx` - Formulario de procedimientos
 - [ ] Tests de procedimientos odontológicos
 
 ### Baja Prioridad
@@ -193,9 +248,12 @@ npm run test:coverage
 ## 🏆 Logros
 
 ✅ **Infraestructura completa** de testing configurada
-✅ **51 tests pasando** sin errores
+✅ **84 tests pasando** sin errores (aumento de 65% desde 51 tests)
 ✅ **Mocks robustos** para Supabase, IndexedDB y Sync Manager
-✅ **Cobertura inicial** de servicios críticos
+✅ **4 servicios completamente probados** (pacientes, historias, procedimientos, fotos)
+✅ **3 hooks completamente probados** (use-debounce, use-online, use-pacientes)
+✅ **2 componentes UI probados** (Button, Input)
+✅ **Cobertura de Supabase Storage** (upload/delete de archivos)
 ✅ **Documentación completa** de testing
 ✅ **Patrón establecido** para tests futuros
 
