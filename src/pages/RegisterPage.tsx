@@ -40,7 +40,7 @@ export const RegisterPage = () => {
 
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof RegisterInput, string>> = {}
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         if (err.path[0]) {
           fieldErrors[err.path[0] as keyof RegisterInput] = err.message
         }
