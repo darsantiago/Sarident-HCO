@@ -1,6 +1,6 @@
 # 📊 Progreso de Desarrollo: Superando a HCO-MS
 
-**Última actualización**: 2025-11-18
+**Última actualización**: 2025-11-18 04:00 UTC
 **Estado**: En desarrollo activo
 **Objetivo**: Superar completamente al sistema HCO-MS existente
 
@@ -15,17 +15,18 @@ Desarrollar Sarident-HCO para que **SUPERE en todos los aspectos** al sistema HC
 ## 📈 Progreso General
 
 ```
-███████████████░░░░░░░░░░░░░░░░░░░░░░░░░░  30% COMPLETADO
+█████████████████░░░░░░░░░░░░░░░░░░░░░░░░  35% COMPLETADO
 
-Completado:   ████████░░ 30%
+Completado:   █████████░ 35%
   ✅ Infraestructura base
   ✅ Autenticación completa
+  ✅ Layout y navegación completos
   ✅ Base de datos diseñada
   ✅ Offline/Sync base
-  ✅ UI Components base
+  ✅ UI Components completos (13 componentes)
+  ✅ Dark mode funcionando
 
-Pendiente:    ░░░░░░░░░░ 70%
-  ⏳ Layout y navegación
+Pendiente:    ░░░░░░░░░░ 65%
   ⏳ CRUD Pacientes
   ⏳ Historias clínicas
   ⏳ Procedimientos
@@ -78,7 +79,47 @@ Pendiente:    ░░░░░░░░░░ 70%
 - ✅ Roles granulares
 - ✅ Múltiples proveedores OAuth
 
-### 3. Base de Datos Diseñada ✅
+### 3. Layout y Navegación Completos ✅
+
+**Archivos creados** (15 archivos):
+- `src/components/layout/AppLayout.tsx` - Layout principal
+- `src/components/layout/Sidebar.tsx` - Menú lateral (desktop/móvil)
+- `src/components/layout/Navbar.tsx` - Barra superior
+- `src/components/layout/UserMenu.tsx` - Menú de usuario
+- `src/components/layout/ThemeToggle.tsx` - Toggle dark/light
+- `src/components/layout/Breadcrumbs.tsx` - Navegación jerárquica
+- `src/hooks/useTheme.ts` - Hook de tema
+- `src/pages/DashboardPage.tsx` - Página principal
+
+**Componentes UI (Shadcn/ui)** - 6 nuevos:
+- `avatar.tsx` - Avatares de usuario
+- `badge.tsx` - Badges para roles
+- `dropdown-menu.tsx` - Menús desplegables
+- `scroll-area.tsx` - Áreas con scroll
+- `select.tsx` - Selectores
+- `sheet.tsx` - Drawers laterales
+
+**Funcionalidades**:
+- ✅ Layout responsive (móvil, tablet, desktop)
+- ✅ Sidebar con 8 secciones de navegación
+- ✅ Navbar con búsqueda global
+- ✅ User menu con avatar y opciones
+- ✅ Dark mode / Light mode / System
+- ✅ Breadcrumbs automáticos
+- ✅ Notificaciones
+- ✅ Dashboard con estadísticas
+- ✅ Acciones rápidas
+- ✅ Estado del sistema
+
+**Superioridad sobre HCO-MS**:
+- ✅ UI moderna vs HTML básico
+- ✅ Dark mode (HCO-MS no tiene)
+- ✅ Responsive superior
+- ✅ Navegación más intuitiva
+- ✅ Mejor UX móvil (Sheet drawer)
+- ✅ Búsqueda global integrada
+
+### 4. Base de Datos Diseñada ✅
 
 **Tablas**:
 - `usuarios` - Perfiles y roles ✅
@@ -90,44 +131,30 @@ Pendiente:    ░░░░░░░░░░ 70%
 
 **RLS Policies**: ✅ Configurado
 
-### 4. Infraestructura Base ✅
+### 5. Infraestructura Base ✅
 
 - Supabase configurado
 - IndexedDB (Dexie) configurado
 - SyncManager base
-- UI Components (Shadcn/ui)
+- UI Components (Shadcn/ui) - 13 componentes
 - TypeScript estricto
 - Vite configurado
+- React Router v6 configurado
 
 ---
 
 ## 🔄 En Progreso
 
 ### Nada actualmente
-_(Autenticación completada, listo para siguiente fase)_
+_(Layout completado, listo para CRUD de pacientes)_
 
 ---
 
 ## ⏳ Próximos Pasos
 
-### SEMANA 1 - Días 4-5: Layout y Navegación
-
-**Tareas**:
-- [ ] AppLayout con Sidebar
-- [ ] Navbar responsive
-- [ ] Menú de navegación
-- [ ] Breadcrumbs
-- [ ] User menu
-- [ ] Theme toggle (dark/light)
-- [ ] Búsqueda global
-
-**Archivos a crear**:
-- `src/components/layout/AppLayout.tsx`
-- `src/components/layout/Navbar.tsx`
-- `src/components/layout/Sidebar.tsx`
-- `src/components/layout/Breadcrumbs.tsx`
-
-**Tiempo estimado**: 2 días
+### SEMANA 1 - COMPLETADA ✅
+- ✅ Días 1-3: Autenticación completa
+- ✅ Días 4-5: Layout y navegación
 
 ---
 
