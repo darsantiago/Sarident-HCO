@@ -8,7 +8,7 @@ interface AuthState {
   isLoading: boolean
   isAuthenticated: boolean
   login: (email: string, password: string) => Promise<void>
-  signup: (email: string, password: string, fullName: string) => Promise<void>
+  signup: (email: string, password: string, fullName: string) => Promise<{ requiresConfirmation: boolean }>
   logout: () => Promise<void>
   initialize: () => Promise<void>
 }
@@ -53,14 +53,18 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       if (error) throw error
 
-      // Si la confirmación de email está deshabilitada, el usuario ya estará autenticado
+      // Si hay sesión, el usuario está autenticado inmediatamente (email confirmation deshabilitada)
       if (data.session) {
         set({
           user: data.user,
           session: data.session,
           isAuthenticated: true,
         })
+        return { requiresConfirmation: false }
       }
+
+      // Si no hay sesión pero hay usuario, requiere confirmación de email
+      return { requiresConfirmation: true }
     } catch (error) {
       console.error('Error en registro:', error)
       throw error

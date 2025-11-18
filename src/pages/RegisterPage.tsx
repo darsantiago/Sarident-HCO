@@ -52,16 +52,33 @@ export const RegisterPage = () => {
     setIsLoading(true)
 
     try {
-      await signup(formData.email, formData.password, formData.fullName)
-      toast({
-        title: 'Registro exitoso',
-        description: 'Tu cuenta ha sido creada correctamente',
-      })
-      navigate('/')
+      const result = await signup(formData.email, formData.password, formData.fullName)
+
+      if (result.requiresConfirmation) {
+        toast({
+          title: 'Cuenta creada',
+          description: 'Por favor revisa tu correo electrónico para confirmar tu cuenta antes de iniciar sesión.',
+          duration: 7000,
+        })
+        navigate('/login')
+      } else {
+        toast({
+          title: 'Registro exitoso',
+          description: 'Tu cuenta ha sido creada correctamente',
+        })
+        navigate('/')
+      }
     } catch (error: any) {
+      const errorMessage = error?.message || ''
+      let description = 'No se pudo crear la cuenta. Intenta nuevamente.'
+
+      if (errorMessage.includes('User already registered')) {
+        description = 'Este correo ya está registrado. Intenta iniciar sesión.'
+      }
+
       toast({
         title: 'Error al registrar',
-        description: error?.message || 'No se pudo crear la cuenta. Intenta nuevamente.',
+        description,
         variant: 'destructive',
       })
     } finally {

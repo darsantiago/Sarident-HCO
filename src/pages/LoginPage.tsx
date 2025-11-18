@@ -27,10 +27,20 @@ export const LoginPage = () => {
         description: 'Bienvenido a Sarident HC',
       })
       navigate('/')
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error?.message || ''
+
+      let description = 'Credenciales incorrectas'
+
+      if (errorMessage.includes('Email not confirmed')) {
+        description = 'Tu email aún no ha sido confirmado. Por favor revisa tu correo o contacta al administrador.'
+      } else if (errorMessage.includes('Invalid login credentials')) {
+        description = 'Email o contraseña incorrectos'
+      }
+
       toast({
         title: 'Error al iniciar sesión',
-        description: 'Credenciales incorrectas',
+        description,
         variant: 'destructive',
       })
     } finally {
