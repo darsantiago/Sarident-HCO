@@ -62,7 +62,7 @@ export class ErrorBoundary extends React.Component<
                   Se ha producido un error inesperado. Por favor, intenta
                   recargar la página.
                 </p>
-                {process.env.NODE_ENV === "development" && this.state.error && (
+                {import.meta.env.DEV && this.state.error && (
                   <pre className="mt-2 text-xs overflow-auto p-2 bg-muted rounded">
                     {this.state.error.message}
                   </pre>
