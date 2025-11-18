@@ -2,11 +2,11 @@
 
 ## ✅ Estado Actual
 
-**Total de tests:** 128 ✓
+**Total de tests:** 149 ✓
 **Estado:** Todos pasando ✅
 **Framework:** Vitest + React Testing Library
 **Cobertura objetivo:** 80%+
-**Cobertura estimada:** ~75%
+**Cobertura estimada:** ~80%
 
 ---
 
@@ -101,7 +101,7 @@ Cobertura completa del servicio de exportación:
 
 ---
 
-### 🎣 Hooks (45 tests)
+### 🎣 Hooks (66 tests)
 
 #### `src/hooks/__tests__/use-debounce.test.ts` (6 tests)
 - ✓ Retornar valor inicial inmediatamente
@@ -159,6 +159,31 @@ Cobertura completa del servicio de exportación:
 - ✓ Manejar error cuando no hay procedimientoId al subir
 - ✓ Lanzar error al subir foto cuando falla
 - ✓ Lanzar error al eliminar foto cuando falla
+
+#### `src/hooks/__tests__/use-auth.test.ts` (9 tests)
+- ✓ Devolver el usuario del store
+- ✓ Devolver la sesión del store
+- ✓ Devolver isLoading del store
+- ✓ Devolver isAuthenticated del store
+- ✓ Exponer la función login
+- ✓ Exponer la función logout
+- ✓ Exponer la función initialize
+- ✓ Devolver null cuando no hay usuario autenticado
+- ✓ Devolver isLoading true durante la inicialización
+
+#### `src/hooks/__tests__/use-camera.test.ts` (12 tests)
+- ✓ Estado inicial correcto
+- ✓ Iniciar la cámara exitosamente
+- ✓ Manejar errores al iniciar la cámara
+- ✓ Detener la cámara correctamente
+- ✓ Capturar una foto cuando hay video activo
+- ✓ Retornar null cuando no hay video activo
+- ✓ Retornar null cuando getContext falla
+- ✓ Cambiar entre cámaras
+- ✓ Manejar errores al cambiar de cámara
+- ✓ No hacer nada si switchCamera se llama sin stream
+- ✓ Asignar el stream al videoRef cuando está disponible
+- ✓ Limpiar el videoRef al detener la cámara
 
 ---
 
@@ -225,7 +250,9 @@ src/
 │   ├── use-pacientes.test.ts
 │   ├── use-historia-clinica.test.ts
 │   ├── use-procedimientos.test.ts
-│   └── use-fotos.test.ts
+│   ├── use-fotos.test.ts
+│   ├── use-auth.test.ts
+│   └── use-camera.test.ts
 └── components/ui/__tests__/
     ├── button.test.tsx
     └── input.test.tsx
@@ -290,8 +317,8 @@ npm run test:coverage
 - [x] ~~`use-procedimientos.test.ts`~~ - ✅ Completado (8 tests)
 - [x] ~~`use-fotos.test.ts`~~ - ✅ Completado (10 tests)
 - [x] ~~`export.service.test.ts`~~ - ✅ Completado (18 tests)
-- [ ] `use-auth.test.ts` - Hook de autenticación
-- [ ] `use-camera.test.ts` - Hook de cámara
+- [x] ~~`use-auth.test.ts`~~ - ✅ Completado (9 tests)
+- [x] ~~`use-camera.test.ts`~~ - ✅ Completado (12 tests)
 
 ### Media Prioridad
 - [ ] `PacienteForm.test.tsx` - Formulario de pacientes
@@ -313,18 +340,20 @@ npm run test:coverage
 ## 🏆 Logros
 
 ✅ **Infraestructura completa** de testing configurada
-✅ **128 tests pasando** sin errores (aumento de 150% desde 51 tests)
-✅ **Mocks robustos** para Supabase, IndexedDB, Sync Manager y jsPDF
+✅ **149 tests pasando** sin errores (aumento de 192% desde 51 tests)
+✅ **Mocks robustos** para Supabase, IndexedDB, Sync Manager, jsPDF, MediaDevices
 ✅ **5 servicios completamente probados** (pacientes, historias, procedimientos, fotos, export)
-✅ **6 hooks completamente probados** (use-debounce, use-online, use-pacientes, use-historia-clinica, use-procedimientos, use-fotos)
+✅ **8 hooks completamente probados** (use-debounce, use-online, use-pacientes, use-historia-clinica, use-procedimientos, use-fotos, use-auth, use-camera)
 ✅ **2 componentes UI probados** (Button, Input)
 ✅ **Cobertura de Supabase Storage** (upload/delete de archivos)
 ✅ **Cobertura de browser-image-compression** (compresión de imágenes)
 ✅ **Cobertura de jsPDF** (generación de PDFs)
 ✅ **Cobertura de Blob y URL APIs** (descarga de archivos)
+✅ **Cobertura de MediaDevices API** (acceso a cámara)
+✅ **Cobertura de Auth Store** (autenticación con Zustand)
 ✅ **Documentación completa** de testing
 ✅ **Patrón establecido** para tests futuros
-✅ **Cobertura estimada del ~75%** (objetivo: 80%+)
+✅ **Cobertura estimada del ~80%** 🎯 (¡Objetivo alcanzado!)
 
 ---
 
