@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from './components/ui/toaster'
 import { useAuth } from './hooks/use-auth'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
+import { PublicRoute } from './components/auth/PublicRoute'
 import { AppLayout } from './components/layout/AppLayout'
 import { Spinner } from './components/ui/spinner'
 import { syncManager } from './lib/db/sync-manager'
@@ -40,8 +41,16 @@ function App() {
       }>
         <Routes>
           {/* Rutas públicas */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          } />
+          <Route path="/register" element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          } />
 
           {/* Rutas protegidas */}
           <Route
