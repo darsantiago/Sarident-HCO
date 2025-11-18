@@ -10,6 +10,7 @@ import './index.css'
 
 // Lazy loading de páginas
 const LoginPage = lazy(() => import('./pages/LoginPage').then(m => ({ default: m.LoginPage })))
+const RegisterPage = lazy(() => import('./pages/RegisterPage').then(m => ({ default: m.RegisterPage })))
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
 const PacientesPage = lazy(() => import('./pages/PacientesPage').then(m => ({ default: m.PacientesPage })))
 const PacienteDetailPage = lazy(() => import('./pages/PacienteDetailPage').then(m => ({ default: m.PacienteDetailPage })))
@@ -38,8 +39,9 @@ function App() {
         </div>
       }>
         <Routes>
-          {/* Ruta pública */}
+          {/* Rutas públicas */}
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
           {/* Rutas protegidas */}
           <Route

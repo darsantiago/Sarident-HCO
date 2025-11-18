@@ -8,6 +8,7 @@ interface AuthState {
   isLoading: boolean
   isAuthenticated: boolean
   login: (email: string, password: string) => Promise<void>
+  signup: (email: string, password: string, fullName: string) => Promise<void>
   logout: () => Promise<void>
   initialize: () => Promise<void>
 }
@@ -34,6 +35,34 @@ export const useAuthStore = create<AuthState>((set) => ({
       })
     } catch (error) {
       console.error('Error en login:', error)
+      throw error
+    }
+  },
+
+  signup: async (email: string, password: string, fullName: string) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+          },
+        },
+      })
+
+      if (error) throw error
+
+      // Si la confirmación de email está deshabilitada, el usuario ya estará autenticado
+      if (data.session) {
+        set({
+          user: data.user,
+          session: data.session,
+          isAuthenticated: true,
+        })
+      }
+    } catch (error) {
+      console.error('Error en registro:', error)
       throw error
     }
   },

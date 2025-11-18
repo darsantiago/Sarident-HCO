@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -87,8 +87,13 @@ export const LoginPage = () => {
           </Button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <p>Demo: usa las credenciales de tu cuenta Supabase</p>
+        <div className="mt-6 text-center text-sm text-gray-600">
+          <p>
+            ¿No tienes cuenta?{' '}
+            <Link to="/register" className="font-medium text-primary hover:underline">
+              Regístrate aquí
+            </Link>
+          </p>
         </div>
       </Card>
     </div>
