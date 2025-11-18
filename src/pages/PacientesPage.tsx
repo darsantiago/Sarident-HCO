@@ -3,7 +3,7 @@ import { usePacientes } from '@/hooks/use-pacientes'
 import { useDebounce } from '@/hooks/use-debounce'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Dialog } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { PacienteCard } from '@/components/pacientes/PacienteCard'
 import { PacienteForm } from '@/components/pacientes/PacienteForm'
 import { Spinner } from '@/components/ui/spinner'
@@ -113,21 +113,21 @@ export const PacientesPage = () => {
       )}
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-2xl rounded-lg bg-white p-6">
-            <h2 className="mb-4 text-2xl font-bold">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
               {editingPaciente ? 'Editar Paciente' : 'Nuevo Paciente'}
-            </h2>
-            <PacienteForm
-              paciente={editingPaciente || undefined}
-              onSubmit={handleSubmit}
-              onCancel={() => {
-                setShowDialog(false)
-                setEditingPaciente(null)
-              }}
-            />
-          </div>
-        </div>
+            </DialogTitle>
+          </DialogHeader>
+          <PacienteForm
+            paciente={editingPaciente || undefined}
+            onSubmit={handleSubmit}
+            onCancel={() => {
+              setShowDialog(false)
+              setEditingPaciente(null)
+            }}
+          />
+        </DialogContent>
       </Dialog>
     </div>
   )
