@@ -144,7 +144,7 @@ describe('fotosService', () => {
       const result = await fotosService.upload(mockFile, 'proc-123', 'antes')
 
       expect(result).toEqual(mockFoto)
-      expect(mockStorage.from).toHaveBeenCalledWith('fotos-clinicas')
+      expect(mockStorage.from).toHaveBeenCalledWith('fotos-pacientes')
       expect(mockStorageBucket.upload).toHaveBeenCalled()
       expect(mockStorageBucket.getPublicUrl).toHaveBeenCalled()
       expect(mockChain.insert).toHaveBeenCalledWith(
@@ -212,7 +212,7 @@ describe('fotosService', () => {
 
       await fotosService.delete('foto-123', 'proc-123/1234567890_foto.jpg')
 
-      expect(mockStorage.from).toHaveBeenCalledWith('fotos-clinicas')
+      expect(mockStorage.from).toHaveBeenCalledWith('fotos-pacientes')
       expect(mockStorageBucket.remove).toHaveBeenCalledWith(['proc-123/1234567890_foto.jpg'])
       expect(mockSupabase.from).toHaveBeenCalledWith('fotos_clinicas')
       expect(mockChain.eq).toHaveBeenCalledWith('id', 'foto-123')

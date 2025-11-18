@@ -5,7 +5,7 @@ export const APP_NAME = 'Sarident HC';
 export const APP_VERSION = '1.0.0';
 
 export const STORAGE_BUCKETS = {
-  FOTOS_CLINICAS: 'fotos-clinicas',
+  FOTOS_CLINICAS: 'fotos-pacientes',
 };
 
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
