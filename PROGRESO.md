@@ -20,11 +20,11 @@ Funcionalidades implementadas:
 ✅ Sincronización con Metrosalud
 ✅ PWA funcional con modo offline
 ✅ Exportación a PDF
-✅ Suite de testing (84 tests pasando)
+✅ Suite de testing (110 tests pasando)
 ✅ Documentación completa
 
 Pendiente:
-⏳ Cobertura de testing al 80%+ (actualmente ~55%)
+⏳ Cobertura de testing al 80%+ (actualmente ~70%)
 ⏳ Tests E2E con Playwright
 ```
 
@@ -223,19 +223,22 @@ Pendiente:
 - [x] Suspense con fallbacks
 - [x] Memoization de componentes
 
-### 20. Testing (75%)
+### 20. Testing (85%)
 - [x] Vitest configurado
 - [x] React Testing Library
 - [x] Setup y utilidades de testing
 - [x] Mocks de Supabase, IndexedDB, Sync Manager
-- [x] 84 tests implementados y pasando:
+- [x] 110 tests implementados y pasando:
   - [x] 35 tests de servicios (pacientes, historias, procedimientos, fotos)
-  - [x] 19 tests de hooks (debounce, online, pacientes)
+  - [x] 45 tests de hooks (debounce, online, pacientes, historia-clinica, procedimientos, fotos)
   - [x] 30 tests de componentes UI (button, input)
 - [x] Tests de historias service (8 tests)
 - [x] Tests de procedimientos service (10 tests)
 - [x] Tests de fotos service (9 tests)
 - [x] Tests de use-pacientes hook (6 tests)
+- [x] Tests de use-historia-clinica hook (8 tests)
+- [x] Tests de use-procedimientos hook (8 tests)
+- [x] Tests de use-fotos hook (10 tests)
 - [ ] Tests de export service
 - [ ] Tests de auth hook
 - [ ] Tests E2E con Playwright
@@ -264,16 +267,18 @@ Pendiente:
 
 ## ⏳ PENDIENTE (5%)
 
-### Testing (75% completado, 25% pendiente)
+### Testing (85% completado, 15% pendiente)
 - [ ] **Alta prioridad:**
   - [x] ~~Tests de `historias.service.ts`~~ ✅ (8 tests)
   - [x] ~~Tests de `procedimientos.service.ts`~~ ✅ (10 tests)
   - [x] ~~Tests de `fotos.service.ts`~~ ✅ (9 tests)
   - [x] ~~Tests de `use-pacientes.ts`~~ ✅ (6 tests)
+  - [x] ~~Tests de `use-historia-clinica.ts`~~ ✅ (8 tests)
+  - [x] ~~Tests de `use-procedimientos.ts`~~ ✅ (8 tests)
+  - [x] ~~Tests de `use-fotos.ts`~~ ✅ (10 tests)
   - [ ] Tests de `export.service.ts`
   - [ ] Tests de `use-auth.ts`
-  - [ ] Tests de `use-historias.ts`
-  - [ ] Tests de `use-procedimientos.ts`
+  - [ ] Tests de `use-camera.ts`
 
 - [ ] **Media prioridad:**
   - [ ] Tests de componentes de formularios
@@ -297,12 +302,12 @@ Pendiente:
 ## 📈 Estadísticas del Proyecto
 
 ### Código
-- **Archivos TypeScript/TSX:** 72
-- **Líneas de código:** ~11,000+
+- **Archivos TypeScript/TSX:** 75
+- **Líneas de código:** ~11,500+
 - **Componentes:** 40+
 - **Hooks personalizados:** 9
 - **Servicios:** 6
-- **Tests:** 84 (todos pasando)
+- **Tests:** 110 (todos pasando)
 
 ### Documentación
 - **Archivos .md:** 16
@@ -393,7 +398,7 @@ npm run test:coverage # Reporte de cobertura
 | **Escalabilidad** | ✅ Ilimitada | ❌ Limitada |
 | **Seguridad** | ✅ RLS + Auth | ⚠️ Básica |
 | **UX** | ✅ Moderna | ⚠️ Básica |
-| **Testing** | ✅ 84 tests | ❌ No |
+| **Testing** | ✅ 110 tests | ❌ No |
 | **Mantenibilidad** | ✅ Alta | ⚠️ Media |
 | **Performance** | ✅ Excelente | ⚠️ Regular |
 
@@ -417,11 +422,12 @@ npm run test:coverage # Reporte de cobertura
 ✅ **Arquitectura moderna** y escalable
 ✅ **Offline-first** completamente funcional
 ✅ **PWA instalable** en móviles
-✅ **Testing robusto** con 84 tests pasando (75% completado)
+✅ **Testing robusto** con 110 tests pasando (85% completado)
 ✅ **Documentación exhaustiva** (16 archivos)
 ✅ **7 tipos de procedimientos** odontológicos implementados
 ✅ **Sincronización** con sistema legacy (Metrosalud)
 ✅ **4 servicios completamente probados** (pacientes, historias, procedimientos, fotos)
+✅ **6 hooks completamente probados** (debounce, online, pacientes, historias, procedimientos, fotos)
 
 ---
 

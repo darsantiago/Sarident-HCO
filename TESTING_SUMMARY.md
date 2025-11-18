@@ -2,7 +2,7 @@
 
 ## ✅ Estado Actual
 
-**Total de tests:** 84 ✓
+**Total de tests:** 110 ✓
 **Estado:** Todos pasando ✅
 **Framework:** Vitest + React Testing Library
 **Cobertura objetivo:** 80%+
@@ -74,7 +74,7 @@ Cobertura completa del servicio de fotos:
 
 ---
 
-### 🎣 Hooks (19 tests)
+### 🎣 Hooks (45 tests)
 
 #### `src/hooks/__tests__/use-debounce.test.ts` (6 tests)
 - ✓ Retornar valor inicial inmediatamente
@@ -100,6 +100,38 @@ Cobertura completa del servicio de fotos:
 - ✓ Eliminar un paciente de la lista
 - ✓ Buscar pacientes y actualizar la lista
 - ✓ Recargar la lista de pacientes
+
+#### `src/hooks/__tests__/use-historia-clinica.test.ts` (8 tests)
+- ✓ Cargar historia automáticamente cuando se pasa pacienteId
+- ✓ No cargar si no hay pacienteId
+- ✓ Crear historia y actualizar el estado
+- ✓ Actualizar historia y actualizar el estado
+- ✓ Refrescar historia correctamente
+- ✓ Manejar errores al cargar historia
+- ✓ Lanzar error al crear historia cuando falla
+- ✓ Lanzar error al actualizar historia cuando falla
+
+#### `src/hooks/__tests__/use-procedimientos.test.ts` (8 tests)
+- ✓ Cargar procedimientos automáticamente cuando se pasa historiaId
+- ✓ No cargar si no hay historiaId
+- ✓ Crear procedimiento y agregarlo a la lista
+- ✓ Actualizar procedimiento en la lista
+- ✓ Refrescar la lista de procedimientos
+- ✓ Manejar errores al cargar procedimientos
+- ✓ Lanzar error al crear procedimiento cuando falla
+- ✓ Lanzar error al actualizar procedimiento cuando falla
+
+#### `src/hooks/__tests__/use-fotos.test.ts` (10 tests)
+- ✓ Cargar fotos automáticamente cuando se pasa procedimientoId
+- ✓ No cargar si no hay procedimientoId
+- ✓ Subir foto y agregarla a la lista
+- ✓ Subir foto desde blob
+- ✓ Eliminar foto de la lista
+- ✓ Refrescar la lista de fotos
+- ✓ Manejar errores al cargar fotos
+- ✓ Manejar error cuando no hay procedimientoId al subir
+- ✓ Lanzar error al subir foto cuando falla
+- ✓ Lanzar error al eliminar foto cuando falla
 
 ---
 
@@ -162,7 +194,10 @@ src/
 ├── hooks/__tests__/
 │   ├── use-debounce.test.ts
 │   ├── use-online.test.ts
-│   └── use-pacientes.test.ts
+│   ├── use-pacientes.test.ts
+│   ├── use-historia-clinica.test.ts
+│   ├── use-procedimientos.test.ts
+│   └── use-fotos.test.ts
 └── components/ui/__tests__/
     ├── button.test.tsx
     └── input.test.tsx
@@ -223,10 +258,12 @@ npm run test:coverage
 - [x] ~~`procedimientos.service.test.ts`~~ - ✅ Completado (10 tests)
 - [x] ~~`fotos.service.test.ts`~~ - ✅ Completado (9 tests)
 - [x] ~~`use-pacientes.test.ts`~~ - ✅ Completado (6 tests)
+- [x] ~~`use-historia-clinica.test.ts`~~ - ✅ Completado (8 tests)
+- [x] ~~`use-procedimientos.test.ts`~~ - ✅ Completado (8 tests)
+- [x] ~~`use-fotos.test.ts`~~ - ✅ Completado (10 tests)
 - [ ] `export.service.test.ts` - Servicio de exportación
 - [ ] `use-auth.test.ts` - Hook de autenticación
-- [ ] `use-historias.test.ts` - Hook de historias clínicas
-- [ ] `use-procedimientos.test.ts` - Hook de procedimientos
+- [ ] `use-camera.test.ts` - Hook de cámara
 
 ### Media Prioridad
 - [ ] `PacienteForm.test.tsx` - Formulario de pacientes
@@ -248,12 +285,13 @@ npm run test:coverage
 ## 🏆 Logros
 
 ✅ **Infraestructura completa** de testing configurada
-✅ **84 tests pasando** sin errores (aumento de 65% desde 51 tests)
+✅ **110 tests pasando** sin errores (aumento de 115% desde 51 tests)
 ✅ **Mocks robustos** para Supabase, IndexedDB y Sync Manager
 ✅ **4 servicios completamente probados** (pacientes, historias, procedimientos, fotos)
-✅ **3 hooks completamente probados** (use-debounce, use-online, use-pacientes)
+✅ **6 hooks completamente probados** (use-debounce, use-online, use-pacientes, use-historia-clinica, use-procedimientos, use-fotos)
 ✅ **2 componentes UI probados** (Button, Input)
 ✅ **Cobertura de Supabase Storage** (upload/delete de archivos)
+✅ **Cobertura de browser-image-compression** (compresión de imágenes)
 ✅ **Documentación completa** de testing
 ✅ **Patrón establecido** para tests futuros
 
