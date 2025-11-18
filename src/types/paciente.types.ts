@@ -2,10 +2,13 @@ export interface Paciente {
   id: string;
   documento: string;
   nombre: string;
+  apellido: string;
   fecha_nacimiento: string;
+  genero: 'masculino' | 'femenino' | 'otro';
   edad?: number;
   telefono?: string;
   direccion?: string;
+  ciudad?: string;
   email?: string;
   metrosalud_id?: string;
   metrosalud_sync_at?: string;
@@ -15,6 +18,7 @@ export interface Paciente {
 }
 
 export type PacienteFormData = Omit<Paciente, 'id' | 'created_at' | 'updated_at' | 'edad'>;
+export type PacienteCreate = Omit<Paciente, 'id' | 'created_at' | 'updated_at'>;
 
 export interface PacienteFilters {
   search?: string;

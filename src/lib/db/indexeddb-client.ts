@@ -1,9 +1,9 @@
-import Dexie, { Table } from 'dexie';
-import { Paciente } from '../../types/paciente.types';
-import { HistoriaClinica } from '../../types/historia-clinica.types';
-import { Procedimiento } from '../../types/procedimiento.types';
-import { FotoClinica } from '../../types/foto.types';
-import { OperacionPendiente } from '../../types/sync.types';
+import Dexie, { type Table } from 'dexie';
+import type { Paciente } from '../../types/paciente.types';
+import type { HistoriaClinica } from '../../types/historia-clinica.types';
+import type { Procedimiento } from '../../types/procedimiento.types';
+import type { FotoClinica } from '../../types/foto.types';
+import type { OperacionPendiente } from '../../types/sync.types';
 
 export class SaridentDB extends Dexie {
   pacientes!: Table<Paciente, string>;
@@ -26,6 +26,7 @@ export class SaridentDB extends Dexie {
 }
 
 export const db = new SaridentDB();
+export const indexedDB = db; // Alias para compatibilidad
 
 // Helper functions for offline operations
 export const addOperacionPendiente = async (

@@ -1,32 +1,67 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from './components/ui/toaster';
-import './index.css';
+import { useEffect, lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from './components/ui/toaster'
+import { useAuth } from './hooks/use-auth'
+import { ProtectedRoute } from './components/auth/ProtectedRoute'
+import { AppLayout } from './components/layout/AppLayout'
+import { Spinner } from './components/ui/spinner'
+import { syncManager } from './lib/db/sync-manager'
+import './index.css'
+
+// Lazy loading de páginas
+const LoginPage = lazy(() => import('./pages/LoginPage').then(m => ({ default: m.LoginPage })))
+const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
+const PacientesPage = lazy(() => import('./pages/PacientesPage').then(m => ({ default: m.PacientesPage })))
+const PacienteDetailPage = lazy(() => import('./pages/PacienteDetailPage').then(m => ({ default: m.PacienteDetailPage })))
+const SincronizacionPage = lazy(() => import('./pages/SincronizacionPage').then(m => ({ default: m.SincronizacionPage })))
 
 function App() {
+  const { initialize } = useAuth()
+
+  useEffect(() => {
+    // Inicializar autenticación
+    initialize()
+
+    // Inicializar sincronización automática
+    syncManager.startAutoSync()
+
+    return () => {
+      syncManager.stopAutoSync()
+    }
+  }, [initialize])
+
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-background">
+      <Suspense fallback={
+        <div className="flex h-screen items-center justify-center">
+          <Spinner size="lg" />
+        </div>
+      }>
         <Routes>
-          <Route path="/" element={
-            <div className="flex items-center justify-center min-h-screen">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold text-primary mb-4">
-                  Sarident HC
-                </h1>
-                <p className="text-muted-foreground">
-                  Sistema de Historias Clínicas Odontológicas
-                </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Proyecto en construcción
-                </p>
-              </div>
-            </div>
-          } />
+          {/* Ruta pública */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Rutas protegidas */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<HomePage />} />
+            <Route path="/pacientes" element={<PacientesPage />} />
+            <Route path="/pacientes/:id" element={<PacienteDetailPage />} />
+            <Route path="/sincronizacion" element={<SincronizacionPage />} />
+          </Route>
+
+          {/* Ruta por defecto */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Toaster />
-      </div>
+      </Suspense>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

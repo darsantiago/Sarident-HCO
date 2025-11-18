@@ -1,14 +1,16 @@
 import { supabase } from './supabase-client';
-import { db, getOperacionesPendientes, deleteOperacionPendiente } from './indexeddb-client';
+import { db, getOperacionesPendientes, deleteOperacionPendiente, addOperacionPendiente } from './indexeddb-client';
+import type { OperacionPendiente } from '../../types/sync.types';
 
 export class SyncManager {
-  private static syncInProgress = false;
+  private syncInProgress = false;
+  private autoSyncInterval: number | null = null;
 
-  static async isOnline(): Promise<boolean> {
+  async isOnline(): Promise<boolean> {
     return navigator.onLine;
   }
 
-  static async syncPendingOperations(): Promise<void> {
+  async syncPendingOperations(): Promise<void> {
     if (this.syncInProgress) {
       console.log('Sync already in progress');
       return;
@@ -43,7 +45,7 @@ export class SyncManager {
     }
   }
 
-  private static async executarOperacion(operacion: any): Promise<void> {
+  private async executarOperacion(operacion: OperacionPendiente): Promise<void> {
     const { tipo, tabla, datos } = operacion;
 
     switch (tipo) {
@@ -59,14 +61,18 @@ export class SyncManager {
     }
   }
 
-  static async saveOffline(
+  async addPendingOperation(operation: Omit<OperacionPendiente, 'id' | 'created_at'>): Promise<void> {
+    await addOperacionPendiente(operation.tipo, operation.tabla, operation.datos);
+  }
+
+  async saveOffline(
     tabla: string,
     tipo: 'create' | 'update' | 'delete',
     datos: any
   ): Promise<void> {
     // Save to IndexedDB
     const dbTable = (db as any)[tabla];
-    
+
     if (tipo === 'create' || tipo === 'update') {
       await dbTable.put(datos);
     } else if (tipo === 'delete') {
@@ -74,11 +80,10 @@ export class SyncManager {
     }
 
     // Add to pending operations
-    const { addOperacionPendiente } = await import('./indexeddb-client');
     await addOperacionPendiente(tipo, tabla as any, datos);
   }
 
-  static setupAutoSync(): void {
+  startAutoSync(): void {
     // Sync when connection is restored
     window.addEventListener('online', () => {
       console.log('Connection restored, syncing...');
@@ -86,13 +91,20 @@ export class SyncManager {
     });
 
     // Periodic sync every 5 minutes when online
-    setInterval(() => {
+    this.autoSyncInterval = window.setInterval(() => {
       if (navigator.onLine) {
         this.syncPendingOperations();
       }
     }, 5 * 60 * 1000);
   }
+
+  stopAutoSync(): void {
+    if (this.autoSyncInterval) {
+      clearInterval(this.autoSyncInterval);
+      this.autoSyncInterval = null;
+    }
+  }
 }
 
-// Initialize auto-sync
-SyncManager.setupAutoSync();
+// Export singleton instance
+export const syncManager = new SyncManager();

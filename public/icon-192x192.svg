@@ -1,0 +1,8 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#3b82f6"/>
+  <g transform="translate(256,256)">
+    <path d="M-60,-80 L60,-80 L60,0 L30,0 L30,60 L-30,60 L-30,0 L-60,0 Z" fill="white" stroke="white" stroke-width="8"/>
+    <circle cx="0" cy="-40" r="20" fill="white"/>
+  </g>
+  <text x="256" y="420" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">HC</text>
+</svg>
