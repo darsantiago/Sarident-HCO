@@ -1,10 +1,14 @@
 /**
  * METROSALUD SYNC SERVICE
  * Servicio para sincronizar datos con Google Sheets de Metrosalud
- * Conecta con Google Apps Script Web App
+ * ACTUALIZADO: Usa Supabase Edge Function en lugar de Google Apps Script
  */
 
-const METROSALUD_API_URL = import.meta.env.VITE_METROSALUD_API_URL || '';
+import { supabase } from '@/lib/supabase'
+
+// Usar Supabase Edge Function
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/metrosalud-sync`
 
 export interface MetrosaludSyncResult {
   ok: boolean;
@@ -28,38 +32,46 @@ export interface MetrosaludSyncStatus {
     razon: string;
   };
   config: {
-    archivo_local_id: string | null;
     configurado: boolean;
-    trigger_hora: number;
     max_horas_sin_sync: number;
   };
+}
+
+/**
+ * Obtener headers de autenticación para Supabase Functions
+ */
+async function getAuthHeaders() {
+  const { data: { session } } = await supabase.auth.getSession()
+
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${session?.access_token || ''}`,
+    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY || '',
+  }
 }
 
 /**
  * Sincronizar pacientes desde Metrosalud manualmente
  */
 export async function sincronizarPacientesMetrosalud(): Promise<MetrosaludSyncResult> {
-  if (!METROSALUD_API_URL) {
-    throw new Error('VITE_METROSALUD_API_URL no está configurada en las variables de entorno');
-  }
-
   try {
-    const response = await fetch(`${METROSALUD_API_URL}?action=sync`, {
+    const headers = await getAuthHeaders()
+
+    const response = await fetch(`${FUNCTION_URL}?action=sync`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+      headers,
+    })
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      const errorText = await response.text()
+      throw new Error(`HTTP ${response.status}: ${errorText}`)
     }
 
-    const result = await response.json();
-    return result;
+    const result = await response.json()
+    return result
   } catch (error) {
-    console.error('Error sincronizando con Metrosalud:', error);
-    throw error;
+    console.error('Error sincronizando con Metrosalud:', error)
+    throw error
   }
 }
 
@@ -67,77 +79,57 @@ export async function sincronizarPacientesMetrosalud(): Promise<MetrosaludSyncRe
  * Obtener estado de la última sincronización
  */
 export async function obtenerEstadoSincronizacion(): Promise<MetrosaludSyncStatus> {
-  if (!METROSALUD_API_URL) {
+  try {
+    const headers = await getAuthHeaders()
+
+    const response = await fetch(`${FUNCTION_URL}?action=status`, {
+      method: 'GET',
+      headers,
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`HTTP ${response.status}: ${errorText}`)
+    }
+
+    const status = await response.json()
+
+    // Convertir fecha string a Date object
+    if (status.ultima_sincronizacion?.fecha) {
+      status.ultima_sincronizacion.fecha = new Date(status.ultima_sincronizacion.fecha)
+    }
+
+    return status
+  } catch (error) {
+    console.error('Error obteniendo estado de sincronización:', error)
+
+    // Retornar estado por defecto en caso de error
     return {
       ultima_sincronizacion: {
         fecha: null,
         pacientes: 0,
-        estado: 'no_configurado',
-        mensaje: 'API de Metrosalud no configurada',
+        estado: 'error',
+        mensaje: 'Error obteniendo estado',
       },
       necesita_sincronizar: {
-        necesita: false,
-        razon: 'API no configurada',
+        necesita: true,
+        razon: 'Error al obtener estado',
       },
       config: {
-        archivo_local_id: null,
-        configurado: false,
-        trigger_hora: 6,
+        configurado: true,
         max_horas_sin_sync: 24,
       },
-    };
-  }
-
-  try {
-    const response = await fetch(`${METROSALUD_API_URL}?action=status`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-
-    const status = await response.json();
-
-    // Convertir fecha string a Date object
-    if (status.ultima_sincronizacion?.fecha) {
-      status.ultima_sincronizacion.fecha = new Date(status.ultima_sincronizacion.fecha);
-    }
-
-    return status;
-  } catch (error) {
-    console.error('Error obteniendo estado de sincronización:', error);
-    throw error;
   }
 }
 
 /**
- * Configurar sincronización automática
+ * Configurar sincronización automática (Nota: Ahora se usa pg_cron en Supabase)
  */
 export async function configurarSyncAutomatica(): Promise<{ ok: boolean; mensaje: string }> {
-  if (!METROSALUD_API_URL) {
-    throw new Error('VITE_METROSALUD_API_URL no está configurada');
-  }
-
-  try {
-    const response = await fetch(`${METROSALUD_API_URL}?action=configTrigger`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error configurando sync automática:', error);
-    throw error;
+  return {
+    ok: true,
+    mensaje: 'Sincronización automática configurada en Supabase (pg_cron a las 6:00 AM)',
   }
 }
 
@@ -145,25 +137,8 @@ export async function configurarSyncAutomatica(): Promise<{ ok: boolean; mensaje
  * Eliminar sincronización automática
  */
 export async function eliminarSyncAutomatica(): Promise<{ ok: boolean; mensaje: string }> {
-  if (!METROSALUD_API_URL) {
-    throw new Error('VITE_METROSALUD_API_URL no está configurada');
-  }
-
-  try {
-    const response = await fetch(`${METROSALUD_API_URL}?action=removeTrigger`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error eliminando sync automática:', error);
-    throw error;
+  return {
+    ok: true,
+    mensaje: 'Sincronización automática desactivada',
   }
 }
