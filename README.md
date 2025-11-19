@@ -5,10 +5,13 @@ Sistema web multiplataforma (PC + Android) profesional para gestión de historia
 ## 📚 Documentación Rápida
 
 - **[🚀 Guía de Deployment Completa](./DEPLOYMENT.md)** - Instrucciones paso a paso para poner en producción en 30 minutos
+- **[🔄 Configurar Metrosalud](./CONFIGURAR_METROSALUD.md)** - 🔥 **NUEVA** Sincronización con Google Sheets
 - **[💰 Análisis de Costos y ROI](./COSTOS-Y-ROI.md)** - Comparativa de opciones, proyecciones y modelos de monetización
 - **[🗄️ Schema de Base de Datos](./supabase-schema.sql)** - Script SQL completo para Supabase
+- **[📡 Integración Metrosalud](./METROSALUD_INTEGRATION.md)** - Documentación técnica completa de la API
 
 **¿Primera vez?** → Lee [DEPLOYMENT.md](./DEPLOYMENT.md) y sigue los pasos.
+**¿Integración Metrosalud?** → Lee [CONFIGURAR_METROSALUD.md](./CONFIGURAR_METROSALUD.md)
 
 ## 🚀 Características Principales
 
@@ -31,11 +34,17 @@ Sistema web multiplataforma (PC + Android) profesional para gestión de historia
 - **Galería visual** con visor full-screen
 - **Compresión inteligente** antes de subir (ahorro de espacio y ancho de banda)
 
-### 🔄 Funcionalidad Offline
+### 🔄 Sincronización
 - **PWA completo** instalable en Android y desktop
 - **IndexedDB** para almacenamiento local
 - **Sincronización automática** cuando se recupera conexión
 - **Operaciones pendientes** guardadas y ejecutadas al reconectar
+- **🆕 Integración con Metrosalud** vía Google Sheets:
+  - Sincronización manual y automática (diaria 6:00 AM)
+  - 88 columnas de datos de pacientes
+  - Normalización automática de fechas
+  - Estado en tiempo real
+  - Ver: [CONFIGURAR_METROSALUD.md](./CONFIGURAR_METROSALUD.md)
 
 ### 📤 Exportación
 - **PDF profesional** con jsPDF
